@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Better Twitter",
+  "version": "1.0",
+  "description": "Bring back the old twitter layout and make your twitter timeline cleaner",
+  "permissions": ["storage", "activeTab"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.twitter.com/*"],
+      "js": ["contentScript.js"]
+    }
+  ],
+  "action": {
+    "default_title": "My Twitter Bookmark",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "assets/icon.png",
+      "24": "assets/icon.png",
+      "32": "assets/icon.png"
+    }
+  }
+}
