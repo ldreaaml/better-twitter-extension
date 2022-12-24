@@ -1,5 +1,4 @@
 <link href="popup.css" rel="stylesheet" type="text/css" />
-<script type="module" src="popup.js"></script>
 
 <div class="container">
     <span class="text">Toggle elements to hide</span>
@@ -7,32 +6,33 @@
         <div class="content">
             <div class="title">Views</div>
             <label class="switch">
-                <input type="checkbox">
+                <input type="checkbox" id="changeView" name="view">
                 <span class="slider round"></span>
             </label>
         </div>
         <div class="content">
             <div class="title">Share</div>
             <label class="switch">
-                <input type="checkbox">
+                <input type="checkbox" id="changeShare" name="share">
                 <span class="slider round"></span>
             </label>
         </div>
         <div class="content">
-            <div class="title">Promted Tweet</div>
+            <div class="title">Promoted Tweet</div>
             <label class="switch">
-                <input type="checkbox">
+                <input type="checkbox" id="changePromotedTweet" name="promotedTweet">
                 <span class="slider round"></span>
             </label>
         </div>
         <div class="content">
             <div class="title">Promoted Account<br> (Who to Follow)</div>
             <label class="switch">
-                <input type="checkbox">
+                <input type="checkbox" id="changePromotedAccount" name="promotedAccount">
                 <span class="slider round"></span>
             </label>
         </div>
     </div>
     <span class="text">Done? Refresh Twitter and Enjoy!</span>
-    <div class="bookmarks" id="bookmarks"></div>
 </div>
+
+<script src="popup.js"></script>

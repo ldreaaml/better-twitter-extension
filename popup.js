@@ -12,34 +12,12 @@ chrome.storage.sync.get(null, (e) => {
   prAccountSwitch.checked = e.promotedAccount;
 });
 
-viewSwitch.onchange = (e) => {
-  console.log(e.target.checked);
-  chrome.storage.sync.set({ view: e.target.checked });
-  chrome.storage.sync.get(null, function (result) {
-    console.log(result);
-  });
-};
-
-shareSwitch.onchange = (e) => {
-  console.log(e.target.checked);
-  chrome.storage.sync.set({ share: e.target.checked });
-  chrome.storage.sync.get(null, function (result) {
-    console.log(result);
-  });
-};
-
-prTweetSwitch.onchange = (e) => {
-  console.log(e.target.checked);
-  chrome.storage.sync.set({ promotedTweet: e.target.checked });
-  chrome.storage.sync.get(null, function (result) {
-    console.log(result);
-  });
-};
-
-prAccountSwitch.onchange = (e) => {
-  console.log(e.target.checked);
-  chrome.storage.sync.set({ promotedAccount: e.target.checked });
-  chrome.storage.sync.get(null, function (result) {
-    console.log(result);
-  });
-};
+[viewSwitch, shareSwitch, prTweetSwitch, prAccountSwitch].forEach((input) => {
+  input.onchange = (e) => {
+    const newSetting = {};
+    newSetting[e.target.name] = e.target.checked;
+    console.log(newSetting);
+    // update storage
+    chrome.storage.sync.set(newSetting);
+  };
+});
