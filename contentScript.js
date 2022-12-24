@@ -18,54 +18,56 @@
     const config = { attributes: true, childList: true, subtree: true };
     const callback = function (mutationsList, observer) {
       for (let mutation of mutationsList) {
-        let xpath = getXpath(currentSetting);
-        let elements = document.evaluate(
-          xpath,
-          document,
-          null,
-          XPathResult.UNORDERED_NODE_ITERATOR_TYPE,
-          null
-        );
-        let targetedElement = elements.iterateNext();
-        while (targetedElement) {
-          if (
-            targetedElement.tagName == "ARTICLE" ||
-            targetedElement.getAttribute("role") == "button"
-          ) {
-            targetedElement.style.display = "none";
-          }
-          if (targetedElement.getAttribute("aria-label") == "Share Tweet") {
-            let parent = targetedElement.parentElement.parentElement;
-            if (parent) {
-              if (parent.style.display != "none") {
-                parent.style.display = "none";
+        if (Object.values(currentSetting).includes(true)) {
+          let xpath = getXpath(currentSetting);
+          let elements = document.evaluate(
+            xpath,
+            document,
+            null,
+            XPathResult.UNORDERED_NODE_ITERATOR_TYPE,
+            null
+          );
+          let targetedElement = elements.iterateNext();
+          while (targetedElement) {
+            if (
+              targetedElement.tagName == "ARTICLE" ||
+              targetedElement.getAttribute("role") == "button"
+            ) {
+              targetedElement.style.display = "none";
+            }
+            if (targetedElement.getAttribute("aria-label") == "Share Tweet") {
+              let parent = targetedElement.parentElement.parentElement;
+              if (parent) {
+                if (parent.style.display != "none") {
+                  parent.style.display = "none";
+                }
+              } else {
+                if (targetedElement.style.display != "none") {
+                  targetedElement.style.display = "none";
+                }
               }
             } else {
-              if (targetedElement.style.display != "none") {
-                targetedElement.style.display = "none";
+              while (targetedElement && targetedElement.tagName != "A") {
+                targetedElement = targetedElement.parentElement;
               }
-            }
-          } else {
-            while (targetedElement && targetedElement.tagName != "A") {
-              targetedElement = targetedElement.parentElement;
-            }
-            if (targetedElement) {
-              var testid = targetedElement.getAttribute("data-testid");
-              if (!testid || testid != "analyticsButton") {
-                let parent = targetedElement.parentElement;
-                if (parent) {
-                  if (parent.style.display != "none") {
-                    parent.style.display = "none";
-                  }
-                } else {
-                  if (targetedElement.style.display != "none") {
-                    targetedElement.style.display = "none";
+              if (targetedElement) {
+                var testid = targetedElement.getAttribute("data-testid");
+                if (!testid || testid != "analyticsButton") {
+                  let parent = targetedElement.parentElement;
+                  if (parent) {
+                    if (parent.style.display != "none") {
+                      parent.style.display = "none";
+                    }
+                  } else {
+                    if (targetedElement.style.display != "none") {
+                      targetedElement.style.display = "none";
+                    }
                   }
                 }
               }
             }
+            targetedElement = elements.iterateNext();
           }
-          targetedElement = elements.iterateNext();
         }
       }
     };
@@ -85,7 +87,7 @@ const getXpath = (currentSetting) => {
   let promotedAccountXPath =
     "//*[local-name()='aside']//div[@role='button'  and  descendant::span[contains(text(), 'Promoted')]]"; //hide promoted accounts
 
-  var xpath = [];
+  let xpath = [];
   if (currentSetting.view) {
     xpath.push(viewXPath);
   }
@@ -98,7 +100,6 @@ const getXpath = (currentSetting) => {
   if (currentSetting.promotedAccount) {
     xpath.push(promotedAccountXPath);
   }
-
   xpath = xpath.join(" | ");
   return xpath;
 };
