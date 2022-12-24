@@ -3,7 +3,7 @@
   "name": "Better Twitter",
   "version": "1.0",
   "description": "Bring back the old twitter layout and make your twitter timeline cleaner",
-  "permissions": ["storage", "activeTab"],
+  "permissions": ["storage"],
   "background": {
     "service_worker": "background.js"
   },
