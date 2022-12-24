@@ -1,10 +1,36 @@
 .container {
+  --blue: #1da1f2;
   width: 220px;
   color: #314d3e;
-  font-family: sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   padding: 10px;
   display: flex;
   flex-direction: column;
+  color: #657786;
+}
+h1 {
+  text-align: center;
+  color: #14171a;
+  font-size: 20px;
+}
+
+h1::before {
+  content: "";
+  background-image: url(./assets/icon-blue.png);
+  background-size: 20px 20px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+.element {
+  /* display: block; */
+  display: flex;
+  align-items: end;
+}
+.element svg {
+  width: 20px;
+  height: 20px;
+  padding-right: 5px;
 }
 
 .text {
@@ -12,19 +38,21 @@
   text-align: center;
 }
 
-.options {
+.settings {
   background-color: white;
   border-radius: 10px;
-  padding: 10px 10px;
+  padding: 30px 10px;
 }
 
+.underline {
+  border-bottom: 1px solid rgb(224, 224, 224);
+}
 .content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 4px;
-  padding-top: 4px;
-  border-bottom: 1px solid rgb(224, 224, 224);
+  padding-bottom: 5px;
+  padding-top: 5px;
 }
 
 .switch {
@@ -65,11 +93,11 @@
 }
 
 input:checked + .slider {
-  background-color: #2196f3;
+  background-color: var(--blue);
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
+  box-shadow: 0 0 1px var(--blue);
 }
 
 input:checked + .slider:before {
