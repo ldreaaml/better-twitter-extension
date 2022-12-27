@@ -1,10 +1,10 @@
 chrome.runtime.onInstalled.addListener(() => {
   chrome.storage.sync.set(
     {
-      view: false,
-      share: false,
-      promotedTweet: false,
-      promotedAccount: false,
+      view: true,
+      share: true,
+      promotedTweet: true,
+      promotedAccount: true,
     },
     () => {
       console.log("init setting");
