@@ -50,7 +50,10 @@
               while (targetedElement && targetedElement.tagName != "A") {
                 targetedElement = targetedElement.parentElement;
               }
-              if (targetedElement) {
+              if (
+                targetedElement &&
+                targetedElement.getAttribute("role") != "menuitem"
+              ) {
                 var testid = targetedElement.getAttribute("data-testid");
                 if (!testid || testid != "analyticsButton") {
                   let parent = targetedElement.parentElement;
