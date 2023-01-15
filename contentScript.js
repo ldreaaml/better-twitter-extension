@@ -28,24 +28,19 @@
             null
           );
           let targetedElement = elements.iterateNext();
+
           while (targetedElement) {
             if (
+              targetedElement.textContent == "Views" ||
+              targetedElement.getAttribute("aria-label") == "Share Tweet"
+            ) {
+              let parent = targetedElement.parentElement.parentElement;
+              parent.style.display = "none";
+            } else if (
               targetedElement.tagName == "ARTICLE" ||
               targetedElement.getAttribute("role") == "button"
             ) {
               targetedElement.style.display = "none";
-            }
-            if (targetedElement.getAttribute("aria-label") == "Share Tweet") {
-              let parent = targetedElement.parentElement.parentElement;
-              if (parent) {
-                if (parent.style.display != "none") {
-                  parent.style.display = "none";
-                }
-              } else {
-                if (targetedElement.style.display != "none") {
-                  targetedElement.style.display = "none";
-                }
-              }
             } else {
               while (targetedElement && targetedElement.tagName != "A") {
                 targetedElement = targetedElement.parentElement;
@@ -58,13 +53,9 @@
                 if (!testid || testid != "analyticsButton") {
                   let parent = targetedElement.parentElement;
                   if (parent) {
-                    if (parent.style.display != "none") {
-                      parent.style.display = "none";
-                    }
+                    parent.style.display = "none";
                   } else {
-                    if (targetedElement.style.display != "none") {
-                      targetedElement.style.display = "none";
-                    }
+                    targetedElement.style.display = "none";
                   }
                 }
               }
@@ -82,27 +73,17 @@
 })();
 
 const getXpath = (currentSetting) => {
-  let viewXPath =
-    "//a[contains(@href, '/analytics')]//span[contains(text(), 'View')] | //a[contains(@aria-label, 'View Tweet analytics')]"; //hide views
-  let shareXPath = "//*[contains(@aria-label, 'Share Tweet')]";
-  let promotedTweetXPath =
-    "//span[contains(text(), 'Promoted') and not (../@data-testid = 'tweetText')]/ancestor::article"; //hide promoted tweets
-  let promotedAccountXPath =
-    "//*[local-name()='aside']//div[@role='button'  and  descendant::span[contains(text(), 'Promoted')]]"; //hide promoted accounts
-
-  let xpath = [];
-  if (currentSetting.view) {
-    xpath.push(viewXPath);
-  }
-  if (currentSetting.share) {
-    xpath.push(shareXPath);
-  }
-  if (currentSetting.promotedTweet) {
-    xpath.push(promotedTweetXPath);
-  }
-  if (currentSetting.promotedAccount) {
-    xpath.push(promotedAccountXPath);
-  }
-  xpath = xpath.join(" | ");
+  const elementXpath = {
+    view: "//span[text()='Views' and not(ancestor::*[@role='textbox']) and not (../@data-testid = 'tweetText')] | //a[contains(@aria-label, 'View Tweet analytics')]",
+    share: "//*[contains(@aria-label, 'Share Tweet')]",
+    promotedTweet:
+      "//span[contains(text(), 'Promoted') and not (../@data-testid = 'tweetText')]/ancestor::article",
+    promotedAccount:
+      "//*[local-name()='aside']//div[@role='button'  and  descendant::span[contains(text(), 'Promoted')]]",
+  };
+  const xpath = Object.entries(elementXpath)
+    .filter(([key]) => currentSetting[key])
+    .map(([_, value]) => value)
+    .join(" | ");
   return xpath;
 };
