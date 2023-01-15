@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Better Twitter",
-  "version": "1.0.1",
-  "description": "Make Twitter great again by removing unwanted contents from your timeline",
+  "version": "1.0.2",
+  "description": "Make Twitter great again by removing unwanted contents from your timeline.",
   "permissions": ["storage"],
   "background": {
     "service_worker": "background.js"
