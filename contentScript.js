@@ -57,6 +57,8 @@
                   } else {
                     targetedElement.style.display = "none";
                   }
+                } else {
+                  targetedElement.parentElement.style.display = "none";
                 }
               }
             }
@@ -75,6 +77,8 @@
 const getXpath = (currentSetting) => {
   const elementXpath = {
     view: "//span[text()='Views' and not(ancestor::*[@role='textbox']) and not (../@data-testid = 'tweetText')] | //a[contains(@aria-label, 'View Tweet analytics')]",
+    analytic:
+      "//span[text()='View Tweet analytics' and not(ancestor::*[@role='menuitem'])]",
     share: "//*[contains(@aria-label, 'Share Tweet')]",
     promotedTweet:
       "//span[contains(text(), 'Promoted') and not (../@data-testid = 'tweetText')]/ancestor::article",
