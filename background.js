@@ -6,6 +6,7 @@ chrome.runtime.onInstalled.addListener(() => {
       share: true,
       promotedTweet: true,
       promotedAccount: true,
+      youMightLike: false,
     },
     () => {
       console.log("init setting");

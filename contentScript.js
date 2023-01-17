@@ -38,7 +38,8 @@
               parent.style.display = "none";
             } else if (
               targetedElement.tagName == "ARTICLE" ||
-              targetedElement.getAttribute("role") == "button"
+              targetedElement.getAttribute("role") == "button" ||
+              targetedElement.getAttribute("data-testid") == "cellInnerDiv"
             ) {
               targetedElement.style.display = "none";
             } else {
@@ -84,6 +85,8 @@ const getXpath = (currentSetting) => {
       "//span[contains(text(), 'Promoted') and not (../@data-testid = 'tweetText')]/ancestor::article",
     promotedAccount:
       "//*[local-name()='aside']//div[@role='button'  and  descendant::span[contains(text(), 'Promoted')]]",
+    youMightLike:
+      "//span[contains(text(), 'You might like') and not (../@data-testid = 'tweetText')]/ancestor::div[@data-testid='cellInnerDiv']",
   };
   const xpath = Object.entries(elementXpath)
     .filter(([key]) => currentSetting[key])
